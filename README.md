@@ -1,13 +1,10 @@
-# VpnSDK .NET Example Application
+# ExampleApp
 
+This is a simple WLVPN VPN SDK usage example. You can find more detailed information on the SDK [here](https://wlvpn.github.io/VpnSDK.NET-Documentation/).
 
+# What you need
+You will need to become a registered WLVPN reseller to run the application. If you have not done so already, please visit https://wlvpn.com/#contact to get started.
 
-### VpnSDK v1
-
-Checkout the `v1` branch for the application based off the `0.8.x - 1.x.x` SDK versions.  
-
-
-
-### VpnSDK v2
-
-While currently unreleased to customers, checkout the `v2` branch for the application based over the revamped and re-engineered version of VpnSDK. More information on the new SDK version will be appearing to our customers soon, until then, please review the new example application for an idea of the new API.
+## VpnSDK
+To be able to build the solution you need to have the access to WLVPN MyGet feed. Please contact us about that https://wlvpn.com/#contact
+API reference is available by request.

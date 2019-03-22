@@ -1,0 +1,98 @@
+﻿<UserControl x:Class="Example.Views.ConnectionView"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:cnvt="clr-namespace:Example.Converters"
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:local="clr-namespace:Example.Views"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             xmlns:sdkEnums="clr-namespace:VpnSDK.Public.Enums;assembly=VpnSDK.Whitelabel"
+             d:DesignHeight="620"
+             d:DesignWidth="800"
+             mc:Ignorable="d">
+    <UserControl.Resources />
+
+    <Grid HorizontalAlignment="Stretch"
+          VerticalAlignment="Stretch"
+          Background="Transparent">
+        <Border Margin="0,0,0,0"
+                HorizontalAlignment="Stretch"
+                VerticalAlignment="Stretch"
+                Background="White" />
+
+        <ScrollViewer HorizontalScrollBarVisibility="Disabled" VerticalScrollBarVisibility="Auto">
+            <StackPanel Height="Auto"
+                        Margin="10,0,0,0"
+                        Orientation="Vertical">
+                <StackPanel Margin="0,0,0,0">
+                    <RadioButton Content="IKEv2"
+                                 FontWeight="Bold"
+                                 GroupName="Protocol"
+                                 IsChecked="{Binding Path=SDKVM.ConnectionProtocol, Converter={StaticResource EnumToBooleanConverter}, ConverterParameter={x:Static sdkEnums:NetworkConnectionType.IKEv2}}" />
+                    <TextBlock Padding="24,0,0,0"
+                               Text="Offers highly stable security, especially when switching networks or  reconnecting. Faster than other protocols, but only supported on limited platforms."
+                               TextWrapping="Wrap" />
+                </StackPanel>
+                <StackPanel Margin="0,20,0,0">
+                    <StackPanel Orientation="Horizontal">
+                        <RadioButton Name="OpenVPNProtocolBtn"
+                                     Content="OpenVPN"
+                                     FontWeight="Bold"
+                                     GroupName="Protocol"
+                                     IsChecked="{Binding Path=SDKVM.ConnectionProtocol, Converter={StaticResource EnumToBooleanConverter}, ConverterParameter={x:Static sdkEnums:NetworkConnectionType.OpenVPN}}"
+                                     IsEnabled="{Binding SDKVM.IsOpenVpnAvailable}" />
+                        <ComboBox Width="80"
+                                  Margin="20,0,0,0"
+                                  IsEnabled="{Binding ElementName=OpenVPNProtocolBtn, Path=IsChecked}"
+                                  ItemsSource="{Binding SDKVM.AvailableOpenVpnProtocols}"
+                                  SelectedItem="{Binding SDKVM.SelectedOpenVpnProtocol}" />
+                    </StackPanel>
+                    <TextBlock Padding="24,10,0,0"
+                               Text="Provides the best security. It may be slower than other protocols due  to its stronger security. OpenVPN is also good choice when other  protocols are not available due to firewall restrictions."
+                               TextWrapping="Wrap" />
+                    <CheckBox Margin="24,10,0,0"
+                              Content="Scramble"
+                              IsChecked="{Binding SDKVM.OpenVpnScramble}"
+                              IsEnabled="{Binding ElementName=OpenVPNProtocolBtn, Path=IsChecked}" />
+                    <TextBlock Margin="48,10,0,0"
+                               Text="Scramble adds obfuscation capability to OpenVPN, allowing it to bypass  network traffic sensors which aim to detect usage of a VPN and block it."
+                               TextWrapping="Wrap" />
+
+                    <Button Grid.Row="1"
+                            Margin="24,10,0,0"
+                            Padding="10,2"
+                            HorizontalAlignment="Left"
+                            Command="{Binding InstallTapDriverCmd}"
+                            IsEnabled="{Binding SDKVM.IsOpenVpnAvailable}">
+                        <TextBlock Text="Install/Reinstall TAP Driver" />
+                    </Button>
+
+                </StackPanel>
+                <StackPanel Margin="0,20,0,0">
+                    <RadioButton Content="SSTP"
+                                 FontWeight="Bold"
+                                 GroupName="Protocol"
+                                 IsChecked="{Binding Path=SDKVM.ConnectionProtocol, Converter={StaticResource EnumToBooleanConverter}, ConverterParameter={x:Static sdkEnums:NetworkConnectionType.SSTP}}"
+                                 IsEnabled="True" />
+                    <TextBlock Padding="24,0,0,0"
+                               Text="Often a good option for users who may be unable to connect using  other protocols due to firewall restrictions."
+                               TextWrapping="Wrap" />
+                </StackPanel>
+                <StackPanel Margin="0,20,0,0" />
+            </StackPanel>
+        </ScrollViewer>
+
+        <Border Grid.Row="0"
+                Grid.RowSpan="2"
+                HorizontalAlignment="Stretch"
+                VerticalAlignment="Stretch"
+                Opacity=".6"
+                Visibility="{Binding SDKVM.IsConnected, Converter={StaticResource BtoV}}">
+            <Border.Background>
+                <LinearGradientBrush StartPoint=".5,0" EndPoint=".5,1">
+                    <GradientStop Offset="0" Color="LightGray" />
+                    <GradientStop Offset="1" Color="LightGray" />
+                </LinearGradientBrush>
+            </Border.Background>
+        </Border>
+    </Grid>
+</UserControl>

@@ -1,0 +1,226 @@
+﻿<Window x:Class="Example.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:cnvt="clr-namespace:Example.Converters"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:local="clr-namespace:Example"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:views="clr-namespace:Example.Views"
+        Title="ExampleVPN"
+        Width="800"
+        Height="620"
+        mc:Ignorable="d">
+
+    <Window.Background>
+        <LinearGradientBrush StartPoint=".5,0" EndPoint=".5,1">
+            <GradientStop Offset="0" Color="WhiteSmoke" />
+            <!--<GradientStop Offset=".5"
+                          Color="Gray" />-->
+            <GradientStop Offset="1" Color="WhiteSmoke" />
+        </LinearGradientBrush>
+    </Window.Background>
+
+    <Window.Resources>
+
+        <Style x:Key="HeaderText" TargetType="TextBlock">
+            <Setter Property="Foreground" Value="Black" />
+        </Style>
+
+        <Style x:Key="ValueText" TargetType="TextBlock">
+            <Setter Property="Foreground" Value="Black" />
+            <Setter Property="FontWeight" Value="Bold" />
+            <Setter Property="Margin" Value="10,0,0,0" />
+        </Style>
+
+    </Window.Resources>
+
+    <Grid Margin="10">
+
+        <Grid>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="Auto" />
+                <RowDefinition Height="*" />
+                <RowDefinition Height="Auto" />
+            </Grid.RowDefinitions>
+
+            <Grid Grid.Row="0" HorizontalAlignment="Stretch">
+                <Border Style="{StaticResource Card}" />
+                <views:ConnectView Margin="8" />
+            </Grid>
+
+            <Grid Grid.Row="1">
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="Auto" />
+                    <RowDefinition Height="*" />
+                </Grid.RowDefinitions>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width=".3*" />
+                    <ColumnDefinition Width="*" />
+                </Grid.ColumnDefinitions>
+
+                <Grid Grid.Row="1" Grid.Column="0">
+
+                    <Border Style="{StaticResource Card}" />
+                    <ListBox Name="lb1"
+                             Margin="15"
+                             HorizontalAlignment="Stretch"
+                             VerticalAlignment="Stretch"
+                             BorderThickness="0"
+                             ItemsSource="{Binding AvailableViews}">
+                        <ListBox.ItemContainerStyle>
+                            <Style TargetType="ListBoxItem">
+                                <Setter Property="IsSelected" Value="{Binding IsSelected}" />
+                            </Style>
+                        </ListBox.ItemContainerStyle>
+                        <ListBox.ItemTemplate>
+                            <DataTemplate>
+                                <TextBlock Text="{Binding DisplayName}" />
+                            </DataTemplate>
+                        </ListBox.ItemTemplate>
+                    </ListBox>
+
+                </Grid>
+
+                <Grid Grid.Row="1" Grid.Column="1">
+
+                    <Border Style="{StaticResource Card}" />
+                    <Grid Margin="8">
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="Auto" />
+                            <RowDefinition Height="5" />
+                            <RowDefinition Height="*" />
+                        </Grid.RowDefinitions>
+
+                        <Border Grid.Row="0"
+                                Padding="2"
+                                Background="White"
+                                BorderThickness="1">
+                            <TextBlock HorizontalAlignment="Center"
+                                       VerticalAlignment="Center"
+                                       FontSize="14"
+                                       FontWeight="Bold"
+                                       Text="{Binding SelectedItem.DisplayName, ElementName=lb1}" />
+                        </Border>
+
+                        <ContentControl Grid.Row="2"
+                                        Padding="2"
+                                        Content="{Binding SelectedItem.View, ElementName=lb1}" />
+                    </Grid>
+                </Grid>
+            </Grid>
+
+            <Grid Grid.Row="2">
+                <Border Style="{StaticResource Card}" />
+
+                <Grid Margin="15">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width=".5*" />
+                        <ColumnDefinition Width=".5*" />
+                    </Grid.ColumnDefinitions>
+
+                    <Button Name="B1"
+                            Margin="0,0,3,0"
+                            Command="{Binding ConnectCmd}">
+                        <TextBlock Margin="5"
+                                   Foreground="{Binding IsEnabled, ElementName=B1, Converter={StaticResource BoolToColor}}"
+                                   Text="Connect" />
+                    </Button>
+                    <Button Name="B2"
+                            Margin="0,0,3,0"
+                            Command="{Binding DisConnectCmd}"
+                            Visibility="{Binding SDKVM.IsConnected, Converter={StaticResource BToViz}}">
+                        <TextBlock Margin="5"
+                                   Foreground="{Binding IsEnabled, ElementName=B2, Converter={StaticResource BoolToColor}}"
+                                   Text="Disconnect" />
+                    </Button>
+
+                    <Button Name="B3"
+                            Grid.Column="1"
+                            Margin="3,0,0,0"
+                            Command="{Binding LogOutCmd}">
+                        <TextBlock Margin="5"
+                                   Foreground="{Binding IsEnabled, ElementName=B3, Converter={StaticResource BoolToColor}}"
+                                   Text="Log Out" />
+                    </Button>
+                </Grid>
+            </Grid>
+
+        </Grid>
+
+        <!--
+            Everything from here down is the overlay for the busy and the login
+            you can change the fallback values to visible to see them
+        -->
+
+        <Border HorizontalAlignment="Stretch"
+                VerticalAlignment="Stretch"
+                Opacity=".6"
+                Visibility="{Binding SDKVM.IsBusy, Converter={StaticResource BtoV}, FallbackValue=Hidden}">
+            <Border.Background>
+                <RadialGradientBrush Center=".5,.5">
+                    <GradientStop Offset="0" Color="Gray" />
+                    <GradientStop Offset="1" Color="Black" />
+                </RadialGradientBrush>
+            </Border.Background>
+        </Border>
+
+        <StackPanel VerticalAlignment="Center"
+                    Orientation="Vertical"
+                    Visibility="{Binding SDKVM.IsBusy, Converter={StaticResource BtoV}, FallbackValue=Hidden}">
+            <ProgressBar Height="8"
+                         Margin="50"
+                         HorizontalAlignment="Stretch"
+                         VerticalAlignment="Center"
+                         BorderBrush="Black"
+                         IsEnabled="{Binding SDKVM.IsBusy}"
+                         IsIndeterminate="{Binding SDKVM.IsBusy}" />
+            <Button Margin="20"
+                    Padding="10"
+                    HorizontalAlignment="Center"
+                    Command="{Binding CancelConnectionCmd}"
+                    Visibility="{Binding SDKVM.IsConnecting, Converter={StaticResource BtoV}, FallbackValue=Hidden}">
+                <TextBlock Text="Cancel Connect" />
+            </Button>
+        </StackPanel>
+
+        <Border HorizontalAlignment="Stretch"
+                VerticalAlignment="Stretch"
+                Opacity=".6"
+                Visibility="{Binding SDKVM.IsLoggedIn, Converter={StaticResource NBtovis}, FallbackValue=Hidden}">
+            <Border.Background>
+                <RadialGradientBrush Center=".5,.5">
+                    <GradientStop Offset="0" Color="DimGray" />
+                    <GradientStop Offset="1" Color="Black" />
+                </RadialGradientBrush>
+            </Border.Background>
+        </Border>
+
+        <Border Width="300"
+                HorizontalAlignment="Center"
+                VerticalAlignment="Center"
+                Background="Black"
+                BorderBrush="#757575"
+                BorderThickness="1">
+            <Border.Style>
+                <Style>
+                    <Style.Triggers>
+                        <MultiDataTrigger>
+                            <MultiDataTrigger.Conditions>
+                                <Condition Binding="{Binding SDKVM.IsBusy}" Value="true" />
+                            </MultiDataTrigger.Conditions>
+                            <Setter Property="Control.Visibility" Value="Hidden" />
+                        </MultiDataTrigger>
+                        <MultiDataTrigger>
+                            <MultiDataTrigger.Conditions>
+                                <Condition Binding="{Binding SDKVM.IsLoggedIn}" Value="true" />
+                            </MultiDataTrigger.Conditions>
+                            <Setter Property="Control.Visibility" Value="Hidden" />
+                        </MultiDataTrigger>
+                    </Style.Triggers>
+                    <Setter Property="Control.Visibility" Value="Visible" />
+                </Style>
+            </Border.Style>
+            <views:AccountView />
+        </Border>
+    </Grid>
+</Window>
