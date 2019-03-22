@@ -1,0 +1,94 @@
+﻿<UserControl x:Class="Example.Views.DestinationsView"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:helpers="clr-namespace:Example.Helpers"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             d:DesignHeight="300"
+             d:DesignWidth="300"
+             mc:Ignorable="d">
+    <UserControl.Resources>
+
+        <DataTemplate x:Key="Region">
+            <StackPanel Orientation="Horizontal">
+                <TextBlock Margin="0,0,0,0"
+                           FontSize="12"
+                           Text="{Binding SearchName}" />
+            </StackPanel>
+        </DataTemplate>
+
+        <DataTemplate x:Key="BestAvailable">
+            <StackPanel Orientation="Horizontal">
+                <TextBlock Margin="0,0,0,0"
+                           FontSize="12"
+                           FontWeight="Bold"
+                           Text="{Binding SearchName}" />
+            </StackPanel>
+        </DataTemplate>
+
+        <helpers:LocationTemplateSelector x:Key="LocationTemplateSelector"
+                                          BestAvailableTemplate="{StaticResource BestAvailable}"
+                                          RegionTemplate="{StaticResource Region}" />
+    </UserControl.Resources>
+
+    <Grid Background="Transparent">
+        <Grid>
+
+            <Grid.RowDefinitions>
+                <RowDefinition Height="Auto" />
+                <RowDefinition Height="*" />
+                <RowDefinition Height="Auto" />
+            </Grid.RowDefinitions>
+            <Grid Grid.Row="0" Margin="5,5,5,10">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="Auto" />
+                    <ColumnDefinition Width="*" />
+                    <ColumnDefinition Width="Auto" />
+                </Grid.ColumnDefinitions>
+
+                <TextBlock Text="Search:" />
+                <TextBox Name="Search"
+                         Grid.Column="1"
+                         Margin="10,0"
+                         HorizontalAlignment="Stretch"
+                         Text="{Binding Search, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
+            </Grid>
+
+            <ListBox Name="DestinationsListView"
+                     Grid.Row="1"
+                     Margin="0,0,0,0"
+                     HorizontalAlignment="Stretch"
+                     VerticalAlignment="Stretch"
+                     BorderThickness="0"
+                     IsEnabled="{Binding SDK.IsConnected, Converter={StaticResource NegativeBooleanToVisibilityConverter}}"
+                     ItemTemplateSelector="{StaticResource LocationTemplateSelector}"
+                     ItemsSource="{Binding Destinations}"
+                     SelectedItem="{Binding SelectedDestination}">
+                <ListBox.GroupStyle>
+                    <GroupStyle>
+                        <GroupStyle.HeaderTemplate>
+                            <DataTemplate>
+                                <TextBlock FontSize="12"
+                                           FontWeight="Bold"
+                                           Text="{Binding Path=Name}" />
+                            </DataTemplate>
+                        </GroupStyle.HeaderTemplate>
+                    </GroupStyle>
+                </ListBox.GroupStyle>
+            </ListBox>
+        </Grid>
+
+        <Border Grid.Row="0"
+                HorizontalAlignment="Stretch"
+                VerticalAlignment="Stretch"
+                Opacity=".6"
+                Visibility="{Binding SDK.IsConnected, Converter={StaticResource BooleanToVisibilityConverter}}">
+            <Border.Background>
+                <LinearGradientBrush StartPoint=".5,0" EndPoint=".5,1">
+                    <GradientStop Offset="0" Color="LightGray" />
+                    <GradientStop Offset="1" Color="LightGray" />
+                </LinearGradientBrush>
+            </Border.Background>
+        </Border>
+    </Grid>
+</UserControl>

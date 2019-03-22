@@ -1,0 +1,33 @@
+﻿<?xml version='1.0' encoding='utf-8'?>
+<SettingsFile xmlns="http://schemas.microsoft.com/VisualStudio/2004/01/settings" CurrentProfile="(Default)" GeneratedClassNamespace="Example.Properties" GeneratedClassName="Settings">
+  <Profiles />
+  <Settings>
+    <Setting Name="ConnectionProtocol" Type="VpnSDK.Enums.NetworkConnectionType" Scope="User">
+      <Value Profile="(Default)">IKEv2</Value>
+    </Setting>
+    <Setting Name="OpenVpnProtocol" Type="VpnSDK.Enums.NetworkProtocolType" Scope="User">
+      <Value Profile="(Default)">UDP</Value>
+    </Setting>
+    <Setting Name="KillSwitch" Type="System.Boolean" Scope="User">
+      <Value Profile="(Default)">False</Value>
+    </Setting>
+    <Setting Name="SelectedDestination" Type="VpnSDK.Interfaces.ILocation" Scope="User">
+      <Value Profile="(Default)" />
+    </Setting>
+    <Setting Name="OpenVpnScramble" Type="System.Boolean" Scope="User">
+      <Value Profile="(Default)">False</Value>
+    </Setting>
+    <Setting Name="LoggingLevel" Type="Serilog.Events.LogEventLevel" Scope="User">
+      <Value Profile="(Default)">Verbose</Value>
+    </Setting>
+    <Setting Name="AllowLANTraffic" Type="System.Boolean" Scope="User">
+      <Value Profile="(Default)">True</Value>
+    </Setting>
+    <Setting Name="DisableDNSLeakProtection" Type="System.Boolean" Scope="User">
+      <Value Profile="(Default)">False</Value>
+    </Setting>
+    <Setting Name="DisableIPv6LeakProtection" Type="System.Boolean" Scope="User">
+      <Value Profile="(Default)">False</Value>
+    </Setting>
+  </Settings>
+</SettingsFile>

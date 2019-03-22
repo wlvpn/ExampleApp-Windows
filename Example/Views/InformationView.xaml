@@ -1,0 +1,93 @@
+﻿<UserControl x:Class="Example.Views.InformationView"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:local="clr-namespace:Example.Views"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             mc:Ignorable="d">
+    <UserControl.Resources>
+
+        <Style x:Key="HeaderText" TargetType="TextBlock">
+            <Setter Property="Foreground" Value="Black" />
+            <Setter Property="FontWeight" Value="Black" />
+            <Setter Property="FontSize" Value="12" />
+        </Style>
+
+        <Style x:Key="ValueText" TargetType="TextBlock">
+            <Setter Property="Foreground" Value="Black" />
+            <Setter Property="FontSize" Value="12" />
+            <Setter Property="Margin" Value="0,0,0,0" />
+        </Style>
+
+    </UserControl.Resources>
+
+    <Grid Background="Transparent">
+        <Border Margin="0,0,0,0"
+                HorizontalAlignment="Stretch"
+                VerticalAlignment="Stretch"
+                Background="White">
+            <Grid>
+                <Grid>
+                    <ScrollViewer HorizontalScrollBarVisibility="Disabled" VerticalScrollBarVisibility="Auto">
+                        <!--<Border Style="{StaticResource Card}" />-->
+                        <StackPanel Margin="15" Orientation="Vertical">
+                            <StackPanel Orientation="Vertical">
+                                <TextBlock Style="{StaticResource HeaderText}" Text="Connection Time" />
+                                <TextBlock Margin="0,0,0,10"
+                                           Style="{StaticResource ValueText}"
+                                           Text="{Binding TimeElapsed, StringFormat='{}{0:dd\\.hh\\:mm\\:ss}'}" />
+                            </StackPanel>
+
+                            <StackPanel Orientation="Vertical">
+                                <TextBlock Style="{StaticResource HeaderText}" Text="External IP Address" />
+                                <TextBlock Margin="6,0,6,6"
+                                           Style="{StaticResource ValueText}"
+                                           Text="{Binding ExternalIPAddress}" />
+                            </StackPanel>
+
+                            <StackPanel Orientation="Vertical">
+                                <TextBlock Style="{StaticResource HeaderText}" Text="Your current Location" />
+                                <TextBlock Margin="6,0,6,6"
+                                           Style="{StaticResource ValueText}"
+                                           Text="{Binding CurrentLocation}" />
+                            </StackPanel>
+
+                            <StackPanel Orientation="Vertical">
+                                <TextBlock Style="{StaticResource HeaderText}" Text="Local IP Addresses" />
+                                <ItemsControl Margin="6,0,6,6" ItemsSource="{Binding IPAddresses}">
+                                    <ItemsControl.ItemTemplate>
+                                        <DataTemplate>
+                                            <TextBlock Style="{StaticResource ValueText}" Text="{Binding}" />
+                                        </DataTemplate>
+                                    </ItemsControl.ItemTemplate>
+                                </ItemsControl>
+                            </StackPanel>
+
+                            <StackPanel Orientation="Vertical">
+                                <TextBlock Style="{StaticResource HeaderText}" Text="Network Adapters" />
+                                <DataGrid Height="175"
+                                          Margin="6"
+                                          AllowDrop="False"
+                                          AreRowDetailsFrozen="True"
+                                          AutoGenerateColumns="False"
+                                          CanUserAddRows="False"
+                                          CanUserDeleteRows="False"
+                                          CanUserResizeRows="False"
+                                          IsReadOnly="True"
+                                          ItemsSource="{Binding NetworkAdapters}">
+                                    <DataGrid.Columns>
+                                        <DataGridTextColumn Binding="{Binding Name}" Header="Name" />
+
+                                        <DataGridTextColumn Binding="{Binding NetworkInterfaceType}" Header="Interface Type" />
+                                        <DataGridTextColumn Binding="{Binding OperationalStatus}" Header="Operational Status" />
+                                        <DataGridTextColumn Binding="{Binding Description}" Header="Description" />
+                                    </DataGrid.Columns>
+                                </DataGrid>
+                            </StackPanel>
+                        </StackPanel>
+                    </ScrollViewer>
+                </Grid>
+            </Grid>
+        </Border>
+    </Grid>
+</UserControl>

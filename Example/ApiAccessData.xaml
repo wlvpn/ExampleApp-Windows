@@ -1,0 +1,17 @@
+﻿<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+                    xmlns:system="clr-namespace:System;assembly=mscorlib">
+
+    <!--
+        The values for the ApiKey and AuthorizationSuffix are required to make
+        WLVPN API calls and an ability to connect WLVPN VPN servers.
+        
+        You must replace those placeholder values with a real key and authentication suffix.
+        
+        To obtain these values you need to be a registered WLVPN reseller.
+        If you have not done so already, please visit https://wlvpn.com/#contact to get started.
+    -->
+
+    <system:String x:Key="ApiKey">thisisnotrealatallok</system:String>
+    <system:String x:Key="AuthorizationSuffix">notreal</system:String>
+</ResourceDictionary>
