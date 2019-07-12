@@ -1,13 +1,11 @@
 # VpnSDK .NET Example Application
 
+### VpnSDK v2 (Current)
 
+To get started, checkout the `v2` branch at https://github.com/wlvpn/ExampleApp-Windows/tree/v2 or with the command `git clone -b v2 --single-branch git@github.com:wlvpn/ExampleApp-Windows.git`.
 
-### VpnSDK v1
+### VpnSDK v1 (Legacy)
 
-Checkout the `v1` branch at https://github.com/wlvpn/ExampleApp-Windows/tree/v1 for the application based off the `0.8.x - 1.x.x` SDK versions.  
+The v1 branch should only be used by clients who were provided with early SDK iterations during the year 2018. This branch should be ignored unless you were an existing partner in 2018 and have been explicitly told to use it.
 
-
-
-### VpnSDK v2
-
-While currently unreleased to customers, checkout the `v2` branch at https://github.com/wlvpn/ExampleApp-Windows/tree/v2 for the application based over the revamped and re-engineered version of VpnSDK. More information on the new SDK version will be appearing to our customers soon, until then, please review the new example application for an idea of the new API.
+Checkout the `v1` branch at https://github.com/wlvpn/ExampleApp-Windows/tree/v1 for the application based off the `0.7.x - 1.x.x` SDK versions.
