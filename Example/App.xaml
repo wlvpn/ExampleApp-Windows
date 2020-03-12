@@ -1,8 +1,9 @@
-﻿<Application x:Class="Example.App"
-             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
-             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-             xmlns:cnvt="clr-namespace:Example.Converters"
-             StartupUri="MainWindow.xaml">
+﻿<Application
+    x:Class="Example.App"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:cnvt="clr-namespace:Example.Converters"
+    StartupUri="MainWindow.xaml">
     <Application.Resources>
         <ResourceDictionary>
             <ResourceDictionary.MergedDictionaries>
@@ -10,15 +11,18 @@
                 <ResourceDictionary Source="ApiAccessData.xaml" />
             </ResourceDictionary.MergedDictionaries>
 
-            <cnvt:ConfigurableBooleanToVisibilityConverter x:Key="BooleanToVisibilityConverter"
-                                                           WhenFalse="Collapsed"
-                                                           WhenTrue="Visible" />
-            <cnvt:ConfigurableBooleanToVisibilityConverter x:Key="NegativeBooleanToVisibilityConverter"
-                                                           WhenFalse="Visible"
-                                                           WhenTrue="Hidden" />
-            <cnvt:BoolToColorConverter x:Key="BoolToColorConverter"
-                                       FalseBrush="Gray"
-                                       TrueBrush="White" />
+            <cnvt:ConfigurableBooleanToVisibilityConverter
+                x:Key="BooleanToVisibilityConverter"
+                WhenFalse="Collapsed"
+                WhenTrue="Visible" />
+            <cnvt:ConfigurableBooleanToVisibilityConverter
+                x:Key="NegativeBooleanToVisibilityConverter"
+                WhenFalse="Visible"
+                WhenTrue="Hidden" />
+            <cnvt:BoolToColorConverter
+                x:Key="BoolToColorConverter"
+                FalseBrush="Gray"
+                TrueBrush="White" />
             <cnvt:EnumToBooleanConverter x:Key="EnumToBooleanConverter" />
         </ResourceDictionary>
     </Application.Resources>

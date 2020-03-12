@@ -1,5 +1,5 @@
-﻿// <copyright file="GeneralSettingsViewModel.cs" company="StackPath, LLC">
-// Copyright (c) StackPath, LLC. All Rights Reserved.
+﻿// <copyright file="GeneralSettingsViewModel.cs" company="NetProtect, LLC">
+// Copyright (c) NetProtect, LLC. All Rights Reserved.
 // </copyright>
 
 using Example.Helpers;

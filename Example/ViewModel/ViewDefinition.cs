@@ -1,5 +1,5 @@
-﻿// <copyright file="ViewDefinition.cs" company="StackPath, LLC">
-// Copyright (c) StackPath, LLC. All Rights Reserved.
+﻿// <copyright file="ViewDefinition.cs" company="NetProtect, LLC">
+// Copyright (c) NetProtect, LLC. All Rights Reserved.
 // </copyright>
 
 using Example.Helpers;
