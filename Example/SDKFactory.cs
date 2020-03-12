@@ -1,5 +1,5 @@
-﻿// <copyright file="SDKFactory.cs" company="StackPath, LLC">
-// Copyright (c) StackPath, LLC. All Rights Reserved.
+﻿// <copyright file="SDKFactory.cs" company="NetProtect, LLC">
+// Copyright (c) NetProtect, LLC. All Rights Reserved.
 // </copyright>
 
 using System;
@@ -34,7 +34,7 @@ namespace Example
                 throw new VpnSDK.InvalidConfigurationException("API key or Authorization token was not set. Please see ApiAccessData.xaml file for more info.");
             }
 
-            return new SDKBuilder<ISDKInternal>()
+            return new SDKBuilder<ISDK>()
                             .SetApiKey(Helpers.Resource.Get<string>("ApiKey"))
                             .SetAuthenticationToken(Helpers.Resource.Get<string>("AuthorizationSuffix"))
                             .SetApplicationName("Example Application")
