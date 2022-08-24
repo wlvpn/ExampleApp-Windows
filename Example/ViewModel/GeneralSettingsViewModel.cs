@@ -100,6 +100,8 @@ namespace Example.ViewModel
             if (status == AuthenticationStatus.Authenticated && Properties.Settings.Default.KillSwitch)
             {
                 SDK.AllowOnlyVPNConnectivity = true;
+
+                SDK.AllowLANTraffic = Properties.Settings.Default.AllowLANTraffic;
             }
 
             // Disabling KillSwitch on logout

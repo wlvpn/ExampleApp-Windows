@@ -66,24 +66,6 @@
                     </Button>
 
                 </StackPanel>
-                <StackPanel Margin="0,20,0,0">
-                    <RadioButton Content="SSTP"
-                                 FontWeight="Bold"
-                                 GroupName="Protocol"
-                                 IsChecked="{Binding Path=ConnectionProtocol, Converter={StaticResource EnumToBooleanConverter}, ConverterParameter={x:Static sdkEnums:NetworkConnectionType.SSTP}}" />
-                    <TextBlock Padding="24,0,0,0"
-                               Text="Often a good option for users who may be unable to connect using  other protocols due to firewall restrictions."
-                               TextWrapping="Wrap" />
-                </StackPanel>
-                <StackPanel Margin="0,20,0,0">
-                    <RadioButton Content="L2TP"
-                                 FontWeight="Bold"
-                                 GroupName="Protocol"
-                                 IsChecked="{Binding Path=ConnectionProtocol, Converter={StaticResource EnumToBooleanConverter}, ConverterParameter={x:Static sdkEnums:NetworkConnectionType.L2TP}}" />
-                    <TextBlock Padding="24,0,0,0"
-                               Text="L2TP is a good balance between speed and security. It is slower than some  protocols, but widely supported on many platforms.}"
-                               TextWrapping="Wrap" />
-                </StackPanel>
                 <StackPanel Margin="0,20,0,0" />
             </StackPanel>
         </ScrollViewer>
