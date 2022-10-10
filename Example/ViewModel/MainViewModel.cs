@@ -149,6 +149,7 @@ namespace Example.ViewModel
             else if (Properties.Settings.Default.ConnectionProtocol == NetworkConnectionType.WireGuard)
             {
                 configuration = new WireGuardConnectionConfigurationBuilder()
+                    .SetBlockUntunneledTraffic(Properties.Settings.Default.BlockNetworkInterfaces)
                     .Build();
             }
             else
