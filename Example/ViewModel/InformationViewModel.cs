@@ -34,6 +34,8 @@ namespace Example.ViewModel
             SDK.VpnConnectionStatusChanged += OnVpnConnectionStatusChanged;
             SDK.UserLocationStatusChanged += OnUserLocationStatusChanged;
             UpdateInformation();
+            SDK.DisableDNSLeakProtection = Properties.Settings.Default.DisableDNSLeakProtection;
+            SDK.DisableIPv6LeakProtection = Properties.Settings.Default.DisableIPv6LeakProtection;
         }
 
         /// <summary>
