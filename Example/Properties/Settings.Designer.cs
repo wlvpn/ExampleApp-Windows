@@ -129,17 +129,5 @@ namespace Example.Properties {
                 this["DisableIPv6LeakProtection"] = value;
             }
         }
-        
-        [global::System.Configuration.UserScopedSettingAttribute()]
-        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("False")]
-        public bool BlockNetworkInterfaces {
-            get {
-                return ((bool)(this["BlockNetworkInterfaces"]));
-            }
-            set {
-                this["BlockNetworkInterfaces"] = value;
-            }
-        }
     }
 }
