@@ -146,6 +146,11 @@ namespace Example.ViewModel
                     .SetNetworkProtocol(Properties.Settings.Default.OpenVpnProtocol)
                     .Build();
             }
+            else if (Properties.Settings.Default.ConnectionProtocol == NetworkConnectionType.WireGuard)
+            {
+                configuration = new WireGuardConnectionConfigurationBuilder()
+                    .Build();
+            }
             else
             {
                 configuration = new RasConnectionConfigurationBuilder()
