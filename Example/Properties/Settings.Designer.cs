@@ -129,5 +129,17 @@ namespace Example.Properties {
                 this["DisableIPv6LeakProtection"] = value;
             }
         }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("True")]
+        public bool AllowLanInterfaces {
+            get {
+                return ((bool)(this["AllowLanInterfaces"]));
+            }
+            set {
+                this["AllowLanInterfaces"] = value;
+            }
+        }
     }
 }

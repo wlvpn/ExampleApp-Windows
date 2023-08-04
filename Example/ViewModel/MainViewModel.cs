@@ -3,6 +3,8 @@
 // </copyright>
 
 using System;
+using System.Collections.Generic;
+using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
 using System.Windows.Input;
@@ -136,32 +138,34 @@ namespace Example.ViewModel
 
         private async Task ConnectTask()
         {
-            IConnectionConfiguration configuration = null;
+            List<IConnectionConfiguration> configurations = new List<IConnectionConfiguration>();
 
-            if (Properties.Settings.Default.ConnectionProtocol == NetworkConnectionType.OpenVPN)
-            {
-                configuration = new OpenVpnConnectionConfigurationBuilder()
+            // Order is important for Automatic Protocol feature. It starts with first configuration and then uses the next one as a fallback.
+            // Lets stick with the next protocols order for now: WG, OpenVPN, IKEv2.
+            configurations.Add(new WireGuardConnectionConfigurationBuilder().SetBlockUntunneledTraffic(!Properties.Settings.Default.AllowLanInterfaces).Build());
+            configurations.Add(new RasConnectionConfigurationBuilder().SetConnectionType(NetworkConnectionType.IKEv2).Build());
+            configurations.Add(
+                new OpenVpnConnectionConfigurationBuilder()
                     .SetCipher(Properties.Settings.Default.OpenVpnScramble ? OpenVpnCipherType.AES_128_CBC : OpenVpnCipherType.AES_256_CBC)
                     .SetScramble(Properties.Settings.Default.OpenVpnScramble)
                     .SetNetworkProtocol(Properties.Settings.Default.OpenVpnProtocol)
-                    .Build();
-            }
-            else if (Properties.Settings.Default.ConnectionProtocol == NetworkConnectionType.WireGuard)
-            {
-                configuration = new WireGuardConnectionConfigurationBuilder()
-                    .Build();
-            }
-            else
-            {
-                configuration = new RasConnectionConfigurationBuilder()
-                    .SetConnectionType(Properties.Settings.Default.ConnectionProtocol)
-                    .Build();
-            }
+                    .Build());
 
             try
             {
+                _connectionTokenSource?.Dispose();
                 _connectionTokenSource = new CancellationTokenSource();
-                await SDK.Connect(Properties.Settings.Default.SelectedDestination, configuration, _connectionTokenSource.Token);
+
+                // If the network connection type is Unspecified, this means that the Automatic Protocol feature is selected.
+                if (Properties.Settings.Default.ConnectionProtocol == NetworkConnectionType.Automatic)
+                {
+                    await SDK.Connect(Properties.Settings.Default.SelectedDestination, configurations, _connectionTokenSource.Token);
+                }
+                else
+                {
+                    // Else, connect to a VPN server using a specific Network connection type.
+                    await SDK.Connect(Properties.Settings.Default.SelectedDestination, configurations.First(x => x.ConnectionType == Properties.Settings.Default.ConnectionProtocol), _connectionTokenSource.Token);
+                }
             }
             catch (OperationCanceledException)
             {
@@ -173,7 +177,6 @@ namespace Example.ViewModel
             }
             finally
             {
-                _connectionTokenSource = null;
                 IsBusy = false;
             }
         }
@@ -182,6 +185,16 @@ namespace Example.ViewModel
         {
             IsBusy = status == AuthenticationStatus.InProgress;
             IsLoggedIn = status == AuthenticationStatus.Authenticated;
+
+            if (IsLoggedIn)
+            {
+                // Setting up SDK filtering settings once logged in.
+                SDK.AllowOnlyVPNConnectivity = Properties.Settings.Default.KillSwitch;
+                SDK.AllowLANTraffic = Properties.Settings.Default.AllowLANTraffic;
+                SDK.AllowLocalAdaptersWhenConnected = Properties.Settings.Default.AllowLanInterfaces;
+                SDK.DisableDNSLeakProtection = Properties.Settings.Default.DisableIPv6LeakProtection;
+                SDK.DisableIPv6LeakProtection = Properties.Settings.Default.DisableIPv6LeakProtection;
+            }
         }
 
         private void OnVpnConnectionStatusChanged(ISDK sender, ConnectionStatus previous, ConnectionStatus current)

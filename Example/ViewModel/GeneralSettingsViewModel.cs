@@ -61,6 +61,23 @@ namespace Example.ViewModel
         }
 
         /// <summary>
+        /// Gets or sets a value indicating whether the local adapters are allowed when connected to a VPN server.
+        /// </summary>
+        /// <value>true or false</value>
+        public bool AllowLanInterfaces
+        {
+            get => Properties.Settings.Default.AllowLanInterfaces;
+
+            set
+            {
+                SDK.AllowLocalAdaptersWhenConnected = value;
+                Properties.Settings.Default.AllowLanInterfaces = value;
+                Properties.Settings.Default.Save();
+                OnPropertyChanged();
+            }
+        }
+
+        /// <summary>
         /// Gets or sets a value indicating whether the VPN connection should allow DNS to leak.
         /// </summary>
         /// <value>true or false</value>

@@ -88,7 +88,7 @@ namespace Example.Helpers
         /// <summary>
         /// ExecuteAsync.
         /// </summary>
-        /// <returns>A task.</returns>
+        /// <returns>A <see cref="Task"/>.</returns>
         public async Task ExecuteAsync()
         {
             if (CanExecute())
@@ -180,7 +180,7 @@ namespace Example.Helpers
         /// Execute command asynchronously.
         /// </summary>
         /// <param name="parameter">Command's parameter.</param>
-        /// <returns>A task.</returns>
+        /// <returns>A <see cref="Task"/></returns>
         public async Task ExecuteAsync(T parameter)
         {
             if (CanExecute(parameter))

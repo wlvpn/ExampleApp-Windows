@@ -44,9 +44,16 @@
                        TextWrapping="Wrap" />
 
             <CheckBox Margin="30,10,0,0"
-                      Content="Allow LAN traffic."
+                      Content="Allow LAN traffic when Kill Switch is on."
                       IsChecked="{Binding AllowLANTraffic, Mode=TwoWay}"
                       Visibility="{Binding ElementName=KS, Path=IsChecked, Converter={StaticResource BooleanToVisibilityConverter}, FallbackValue=Visible}" />
+
+            <CheckBox Content="Allow local network interfaces when connected." IsChecked="{Binding AllowLanInterfaces, Mode=TwoWay}" />
+
+            <TextBlock Margin="30,10,0,0"
+                       FontSize="10"
+                       Text="This option controls local network interfaces availability when you're connected to a VPN server. If the option is off, the app will block all other network interfaces on your computer. This will prevent you from data leaking, for example, while torrenting, but will block the ability to access your LAN resources."
+                       TextWrapping="Wrap" />
 
             <CheckBox Content="Disable DNS leak protection." IsChecked="{Binding DisableDNSLeakProtection, Mode=TwoWay}" />
 
