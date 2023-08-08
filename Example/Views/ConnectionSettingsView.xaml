@@ -22,6 +22,15 @@
                         Margin="10,0,0,0"
                         Orientation="Vertical">
                 <StackPanel Margin="0,0,0,0">
+                    <RadioButton Content="Automatic"
+                                 FontWeight="Bold"
+                                 GroupName="Protocol"
+                                 IsChecked="{Binding Path=ConnectionProtocol, Converter={StaticResource EnumToBooleanConverter}, ConverterParameter={x:Static sdkEnums:NetworkConnectionType.Automatic}}" />
+                    <TextBlock Padding="24,0,0,0"
+                               Text="Connects to the best protocol among ones listed below. Can fallback to the other protocols."
+                               TextWrapping="Wrap" />
+                </StackPanel>
+                <StackPanel Margin="0,20,0,0">
                     <RadioButton Content="IKEv2"
                                  FontWeight="Bold"
                                  GroupName="Protocol"

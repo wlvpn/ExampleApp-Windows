@@ -5,7 +5,6 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Threading;
 using System.Windows;
 using Example.Helpers;
 using VpnSDK.Enums;
@@ -28,6 +27,7 @@ namespace Example.ViewModel
         {
             _connectionStatus = ConnectionStatus.Disconnected;
             SDK.VpnConnectionStatusChanged += OnVpnConnectionStatusChanged;
+            ConnectionProtocol = NetworkConnectionType.WireGuard;
         }
 
         /// <summary>
