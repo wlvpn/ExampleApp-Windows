@@ -23,6 +23,8 @@
                 x:Key="BoolToColorConverter"
                 FalseBrush="Gray"
                 TrueBrush="White" />
+            <cnvt:BooleanInverseConverter
+                x:Key="BooleanInverseConverter"/>
             <cnvt:EnumToBooleanConverter x:Key="EnumToBooleanConverter" />
         </ResourceDictionary>
     </Application.Resources>
