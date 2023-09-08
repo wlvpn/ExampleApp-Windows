@@ -131,6 +131,11 @@ namespace Example.ViewModel
             });
             AvailableViews.Add(new ViewDefinition
             {
+                DisplayName = "Split Tunneling",
+                View = new SplitTunnelingView()
+            });
+            AvailableViews.Add(new ViewDefinition
+            {
                 DisplayName = "Information",
                 View = new InformationView()
             });
