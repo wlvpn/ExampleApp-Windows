@@ -1,5 +1,8 @@
 # VpnSDK .NET Example Application
 
+This repository is no longer actively maintained. For the latest version and updates of the Windows VPN sample app, please refer to our ConsumerVPN-Windows app [https://github.com/wlvpn/ConsumerVPN-Windows].
+
+
 ### VpnSDK v2 (Current)
 
 To get started, checkout the `v2` branch at https://github.com/wlvpn/ExampleApp-Windows/tree/v2 or with the command `git clone -b v2 --single-branch git@github.com:wlvpn/ExampleApp-Windows.git`.
